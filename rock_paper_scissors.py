@@ -2,8 +2,11 @@
 
 from random import choice
 
-emojis = {"r": "🪨", "p": "📃", "s": "✂️"}
-choices = ("r", "p", "s")
+ROCK = "r"
+PAPER = "p"
+SCISSOR = "s"
+emojis = {ROCK: "🪨", PAPER: "📃", SCISSOR: "✂️"}
+choices = tuple(emojis.keys())
 
 
 def get_user_pick():
@@ -26,9 +29,9 @@ def display_result(user_pick, computer_pick):
         print("Tie! Let's try another time.")
 
     elif (
-        (computer_pick == "r" and user_pick == "s") or
-        (computer_pick == "s" and user_pick == "p") or
-            (computer_pick == "p" and user_pick == "r")):
+        (computer_pick == ROCK and user_pick == SCISSOR) or
+        (computer_pick == SCISSOR and user_pick == PAPER) or
+            (computer_pick == PAPER and user_pick == ROCK)):
         print("You lose!")
 
     else:
