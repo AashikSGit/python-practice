@@ -1,20 +1,27 @@
 from random import randint
 
 
-random_num = (randint(1, 50))
-atmp = 0
+print("Please specify the number range you want to make a guess.")
+minimum = int(input("Minimum value: "))
+maximum = int(input("Maximum value: "))
 
-while True:
+random_num = (randint(minimum + 1, maximum - 1))
+attempts = 0
+
+for attempt in range(3):
     try:
-        guess = int(input("\nGuess a number between (1-50): "))
-        atmp += 1
+        guess = int(input(f"\nGuess a number between ({minimum}-{maximum}): "))
+        attempts += 1
         if guess < random_num:
             print("Too Low! Try higher.")
         elif guess > random_num:
             print("Too High! Try lower.")
         else:
             print("Correct!")
-            print(f"You got it in {atmp} tries.")
+            print(f"You got it in {attempts} tries.")
             break
     except ValueError:
         print("Enter a valid number!")
+else:
+    print("\nattempts exceeded!")
+    print(f"The answer is {random_num}")
