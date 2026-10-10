@@ -1,4 +1,4 @@
-# modularized
+# Included a competetive aspect, so that the winner will be declared based on Highscore.
 
 from random import choice
 
@@ -21,36 +21,71 @@ def get_user_pick():
 
 def display_choices(user_pick, computer_pick):
     print(f"You picked {emojis[user_pick]}")
-    print(f"Computer picked {emojis[computer_pick]}")
+    print(f"Bot picked {emojis[computer_pick]}")
 
 
-def display_result(user_pick, computer_pick):
+def get_result(user_pick, computer_pick):
     if computer_pick == user_pick:
-        print("Tie! Let's try another time.")
+        return ("Tie!\n")
 
     elif (
         (computer_pick == ROCK and user_pick == SCISSOR) or
         (computer_pick == SCISSOR and user_pick == PAPER) or
             (computer_pick == PAPER and user_pick == ROCK)):
-        print("You lose!")
+        return ("Bot won\n")
 
     else:
-        print("You Won!")
+        return ("You Won!\n")
+
+
+def get_score(result, user_score, computer_score):
+    if result == "You Won!\n":
+        user_score += 1
+    elif result == "Bot won\n":
+        computer_score += 1
+
+    return user_score, computer_score
+
+
+def main():
+    # This scope contains the game module and uses some sub-functions.
+    computer_pick = choice(choices)
+    user_pick = get_user_pick()
+
+    display_choices(user_pick, computer_pick)
+    print("------------")
+
+    main_result = get_result(user_pick, computer_pick)
+    print(main_result)
+
+    return main_result
 
 
 def play_game():
+    # This scope executes the game module and determines winner.
 
-    while True:
-        computer_pick = choice(choices)
-        user_pick = get_user_pick()
+    print("""
+Welcome to RPS game!
+The game Gives you 3 attempts to play with the RPS bot.
+The winner will be determined based on the high score.
+""")
+    user_score = computer_score = 0
 
-        display_choices(user_pick, computer_pick)
+    for chance in range(3):
+        result = main()
 
-        display_result(user_pick, computer_pick)
+        user_score, computer_score = get_score(
+            result, user_score, computer_score)
 
-        continue_message = input("\nContinue? (y/n): ").lower()
-        if continue_message == "n":
-            break
+    if user_score == computer_score:
+        print("Game Draw!")
+
+    elif user_score > computer_score:
+        print("Winner: You")
+
+    else:
+        print("Winner: Bot")
 
 
-play_game()
+if __name__ == "__main__":
+    play_game()
