@@ -2,7 +2,7 @@ from qrcode import QRCode
 
 
 def make_qr():
-    data = input("Enter the text or URL for the QR code: ")
+    data = input("\nEnter the text or URL for the QR code: ")
 
     qr = QRCode()
     qr.add_data(data)
@@ -48,11 +48,16 @@ def save(img):
 
 
 def main():
-    qr = make_qr()
+    while True:
+        try:
+            qr = make_qr()
 
-    img = make_img(qr)
+            img = make_img(qr)
 
-    save(img)
+            save(img)
+            break
+        except ValueError as error:
+            print(f"{error}, Please Retry.")
 
 
 if __name__ == "__main__":
